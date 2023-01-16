@@ -1,8 +1,20 @@
-#include <pthread.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/16 18:02:42 by fedora            #+#    #+#             */
+/*   Updated: 2023/01/16 20:29:22 by yshimoda         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "philosophers.h"
 
 int main(int argc, char const *argv[])
 {
-
-    pthread_mutex_lock()
+    (void)argc;
+    printf("%s\n", argv[0]);
     return (0);
 }
