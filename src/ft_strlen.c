@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 18:02:42 by fedora            #+#    #+#             */
-/*   Updated: 2023/01/16 20:29:22 by yshimoda         ###   ########.fr       */
+/*   Created: 2023/01/17 12:42:29 by yshimoda          #+#    #+#             */
+/*   Updated: 2023/01/17 12:43:42 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int main(int argc, char const *argv[])
+size_t	ft_strlen(const char *s)
 {
-    (void)argc;
-    printf("%s\n", argv[0]);
-    return (0);
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
 }
