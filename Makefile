@@ -22,6 +22,7 @@ CC				=	cc
 
 CFLAGS			=	-Wall -Wextra -Werror
 DEBUG_FLAGS		=	-g -fsanitize=address -fsanitize=leak -fsanitize=undefined -pthread
+GCC_FLAGS		=	
 THREAD_FLAGS	=	-g -fsanitize=undefined -fsanitize=thread -pthread
 
 .c.o:
@@ -51,5 +52,9 @@ debug:			re
 PHONY			+=	thread
 thread:			CFLAGS +=	$(THREAD_FLAGS)
 thread:			re
+
+PHONY			+=	gcc
+gcc:			CFLAGS =	$(GCC_FLAGS)
+gcc:			re
 
 .PHONY:			$(PHONY)
