@@ -57,4 +57,8 @@ PHONY			+=	gcc
 gcc:			CFLAGS =	$(GCC_FLAGS)
 gcc:			re
 
+PHONY			+=	valgrind
+valgrind:		all
+				valgrind --log-file=$(PWD)/log.txt --leak-check=full --tool=memcheck --leak-check=yes --show-reachable=yes --tool=helgrind ./$(NAME)
+
 .PHONY:			$(PHONY)
