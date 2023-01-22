@@ -3,6 +3,7 @@
 ## Flow
 1. check input
 	1. argc is 5 or 6
+		- if argc == 5 LONG_MAX
 	1. isnum
 	1. num_of_philo is between 1 and 200
 	1. time_to_die is greater than 1
@@ -46,7 +47,7 @@ typedef struct s_arg
 	long				time_to_sleep;
 	long				num_of_must_eat;
 
-	// pthread_mutex_t			write_mutex;
+	pthread_mutex_t			write_mutex;
 	// int						stop;
 }	t_arg;
 ```
