@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:54:10 by fedora            #+#    #+#             */
-/*   Updated: 2023/01/23 05:18:22 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/01/23 08:15:24 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@
 
 typedef struct s_philo
 {
+	pthread_mutex_t	*fork_left_m;
+	pthread_mutex_t	*fork_right_m;
 	int				id;
-	pthread_t		thread;
 	struct timeval	last_eat_time;
 	pthread_mutex_t	last_eat_time_m;
 	int				num_of_eaten;
 	pthread_mutex_t	num_of_eaten_m;
-	pthread_mutex_t	*left_fork_m;
-	pthread_mutex_t	*right_fork_m;
+	pthread_t		thread;
 }	t_philo;
 
 typedef struct s_arg
@@ -60,11 +60,11 @@ typedef struct s_arg
 }	t_arg;
 
 void		check_input(int argc, char const *argv[], t_arg *arg);
+void		create_threads(t_arg *arg);
 void		error_func(int id);
 long		ft_atol(const char *str);
 void		ft_putstr_fd(const char *s, int fd);
 size_t		ft_strlen(const char *s);
-void		ft_thread_create(t_arg *arg);
 void		init_arg(t_arg *arg);
 
 #endif

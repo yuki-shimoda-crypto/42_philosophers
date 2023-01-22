@@ -19,6 +19,6 @@ int main(int argc, char const *argv[])
 
 	check_input(argc, argv, &arg);
 	init_arg(&arg);
-	ft_thread_create(&arg);
+	create_threads(&arg);
 	return (0);
 }

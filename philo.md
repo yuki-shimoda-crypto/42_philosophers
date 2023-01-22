@@ -29,14 +29,14 @@
 ```c
 typedef struct s_philo
 {
+	pthread_mutex_t	*fork_left_m;
+	pthread_mutex_t	*fork_right_m;
 	int				id;
-	pthread_t		thread;
 	struct timeval	last_eat_time;
 	pthread_mutex_t	last_eat_time_m;
 	int				num_of_eaten;
 	pthread_mutex_t	num_of_eaten_m;
-	pthread_mutex_t	*left_fork_m;
-	pthread_mutex_t	*right_fork_m;
+	pthread_t		thread;
 }	t_philo;
 ```
 
