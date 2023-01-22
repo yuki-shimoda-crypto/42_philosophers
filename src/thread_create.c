@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 19:53:06 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/01/19 06:14:07 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/01/23 04:46:32 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ void	*threadfunc(void *philo)
 	return (NULL);
 }
 
-void	ft_thread_create(t_var *var)
+void	ft_thread_create(t_arg *arg)
 {
 	int	i;
 
 	i = 0;
 	while (i < MAX_INPUT)
 	{
-		pthread_create(var->philo[i].thread, NULL, threadfunc, &var->philo[i]);
+		pthread_create(arg->philo[i].thread, NULL, threadfunc, &arg->philo[i]);
 		i++;
 	}
 	return ;

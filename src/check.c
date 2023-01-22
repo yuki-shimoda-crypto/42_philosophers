@@ -15,15 +15,15 @@
 static void	check_arg_num(t_arg *arg)
 {
 	if (arg->num_of_philo < 1 || MAX_PHILO < arg->num_of_philo)
-		error_func("Error, arguments is incorrect\n");
+		error_func(ERROR_ARG_INVALID);
 	if (arg->time_to_die < 1)
-		error_func("Error, arguments is incorrect\n");
+		error_func(ERROR_ARG_INVALID);
 	if (arg->time_to_eat < 1)
-		error_func("Error, arguments is incorrect\n");
+		error_func(ERROR_ARG_INVALID);
 	if (arg->time_to_sleep < 1)
-		error_func("Error, arguments is incorrect\n");
+		error_func(ERROR_ARG_INVALID);
 	if (arg->num_of_must_eat < 1)
-		error_func("Error, arguments is incorrect\n");
+		error_func(ERROR_ARG_INVALID);
 	return ;
 }
 
@@ -36,16 +36,16 @@ static void	input_arg(int argc, char const *argv[], t_arg *arg)
 	if (argc == 6)
 		arg->num_of_must_eat = ft_atol(argv[5]);
 	else
-		arg->num_of_must_eat = LONG_MAX;
+		arg->num_of_must_eat = 0;
 	return ;
 }
 
 inline static void	check_argc(int argc)
 {
 	if (argc < 5)
-		error_func("Error, too few arguments\n");
+		error_func(ERROR_FEW_ARG);
 	else if (6 < argc)
-		error_func("Error, too many arguments\n");
+		error_func(ERROR_MANY_ARG);
 	return ;
 }
 
