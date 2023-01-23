@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:54:10 by fedora            #+#    #+#             */
-/*   Updated: 2023/01/23 08:15:24 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/01/23 09:02:45 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define ERROR_MANY_ARG 1
 # define ERROR_ARG_INVALID 2
 # define ERROR_MUTEX_INIT 3
+# define ERROR_GET_TIME 4
 
 # include <limits.h>
 # include <pthread.h>

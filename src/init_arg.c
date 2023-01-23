@@ -71,6 +71,7 @@ void	init_arg(t_arg *arg)
 		init_philo(&arg->philo[i], arg, i);
 		i++;
 	}
-	gettimeofday(&arg->start_time, NULL);
+	if (gettimeofday(&arg->start_time, NULL) != 0)
+		error_func(ERROR_GET_TIME);
 	return ;
 }
