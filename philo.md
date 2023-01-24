@@ -29,10 +29,11 @@
 ```c
 typedef struct s_philo
 {
+	struct s_arg	*arg;
 	pthread_mutex_t	*fork_left_m;
 	pthread_mutex_t	*fork_right_m;
 	int				id;
-	struct timeval	last_eat_time;
+	long			last_eat_time;
 	pthread_mutex_t	last_eat_time_m;
 	int				num_of_eaten;
 	pthread_mutex_t	num_of_eaten_m;
@@ -56,7 +57,22 @@ typedef struct s_arg
 	pthread_mutex_t		finish_m;
 	pthread_mutex_t		fork_m[MAX_PHILO];
 	t_philo				philo[MAX_PHILO];
-	struct timeval		start_time;
+	long				start_time;
 	pthread_mutex_t		write_mutex;
 }	t_arg;
 ```
+
+## Tips
+- On computer at 42
+	```
+	_STRUCT_TIMEVAL
+	{
+		__darwin_time_t         tv_sec;         /* seconds */
+		__darwin_suseconds_t    tv_usec;        /* and microseconds */
+	};
+
+	typedef long                    __darwin_time_t;        /* time() */
+	typedef __int32_t       __darwin_suseconds_t;   /* [???] microseconds */
+
+	typedef int                     __int32_t;
+	```	

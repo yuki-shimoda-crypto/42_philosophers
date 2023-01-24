@@ -14,16 +14,31 @@
 
 static void	check_arg_num(t_arg *arg)
 {
-	if (arg->num_of_philo < 1 || MAX_PHILO < arg->num_of_philo)
+	if (arg->num_of_philo < 2 || MAX_PHILO < arg->num_of_philo)
+	{
+		printf("%s\t%d\n", "check_arg_num_1", __LINE__);
 		error_func(ERROR_ARG_INVALID);
+	}
 	if (arg->time_to_die < 1)
+	{
+		printf("%s\t%d\n", "check_arg_num_2", __LINE__);
 		error_func(ERROR_ARG_INVALID);
+	}
 	if (arg->time_to_eat < 1)
+	{
+		printf("%s\t%d\n", "check_arg_num_3", __LINE__);
 		error_func(ERROR_ARG_INVALID);
+	}
 	if (arg->time_to_sleep < 1)
+	{
+		printf("%s\t%d\n", "check_arg_num_4", __LINE__);
 		error_func(ERROR_ARG_INVALID);
+	}
 	if (arg->num_of_must_eat < 1)
+	{
+		printf("%s\t%d\n", "check_arg_num_5", __LINE__);
 		error_func(ERROR_ARG_INVALID);
+	}
 	return ;
 }
 
@@ -36,22 +51,53 @@ static void	input_arg(int argc, char const *argv[], t_arg *arg)
 	if (argc == 6)
 		arg->num_of_must_eat = ft_atol(argv[5]);
 	else
-		arg->num_of_must_eat = 0;
+		arg->num_of_must_eat = LONG_MAX;
 	return ;
 }
 
-inline static void	check_argc(int argc)
+static void	check_isnum(char const *argv[])
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (argv[i])
+	{
+		j = 0;
+		if (argv[i][j] == '+' || argv[i][j] == '-')
+			j++;
+		while (argv[i][j])
+		{
+			if (!ft_isdigit(argv[i][j]))
+			{
+				printf("%s\t%d\n", "check_is_num", __LINE__);
+				error_func(ERROR_ARG_INVALID);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+static void	check_argc(int argc)
 {
 	if (argc < 5)
+	{
+		printf("%s\t%d\n", "check_argc_1", __LINE__);
 		error_func(ERROR_FEW_ARG);
+	}
 	else if (6 < argc)
+	{
+		printf("%s\t%d\n", "check_argc_2", __LINE__);
 		error_func(ERROR_MANY_ARG);
+	}
 	return ;
 }
 
 void	check_input(int argc, char const *argv[], t_arg *arg)
 {
 	check_argc(argc);
+	check_isnum(argv);
 	input_arg(argc, argv, arg);
 	check_arg_num(arg);
 	return ;

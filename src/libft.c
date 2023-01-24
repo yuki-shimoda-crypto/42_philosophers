@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   libft.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/17 11:24:38 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/01/17 12:00:33 by yshimoda         ###   ########.fr       */
+/*   Created: 2023/01/24 10:10:43 by yshimoda          #+#    #+#             */
+/*   Updated: 2023/01/24 11:04:36 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,26 @@ long	ft_atol(const char *str)
 	}
 	total *= sign;
 	return (total);
+}
+
+void	ft_putstr_fd(const char *s, int fd)
+{
+	if (!s)
+		return ;
+	write(fd, s, ft_strlen(s));
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
+int	ft_isdigit(int c)
+{
+	return ('0' <= c && c <= '9');
 }

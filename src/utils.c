@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/17 12:42:29 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/01/17 12:43:42 by yshimoda         ###   ########.fr       */
+/*   Created: 2023/01/24 20:20:19 by yshimoda          #+#    #+#             */
+/*   Updated: 2023/01/24 23:06:19 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-size_t	ft_strlen(const char *s)
+long	get_time(void)
 {
-	size_t	i;
+	struct timeval	timeval;
 
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
+	if (gettimeofday(&timeval, NULL) != 0)
+		error_func(ERROR_GET_TIME);
+	return (timeval.tv_sec * 1000 + timeval.tv_usec / 1000);
+}
+
+long	calc_time(long now_time, long start_time)
+{
+	return (now_time - start_time);
 }
