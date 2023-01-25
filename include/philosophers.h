@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:54:10 by fedora            #+#    #+#             */
-/*   Updated: 2023/01/25 08:20:08 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/01/25 17:59:07 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@
 # include <sys/time.h>
 # include <unistd.h>
 
+typedef struct s_monitor
+{
+	struct s_arg	*arg;
+	int				id;
+	pthread_t		thread;
+}	t_monitor;
+
 typedef struct s_philo
 {
 	struct s_arg	*arg;
@@ -65,6 +72,7 @@ typedef struct s_arg
 	bool				finish;
 	pthread_mutex_t		finish_m;
 	pthread_mutex_t		fork_m[MAX_PHILO];
+	t_monitor			monitor;
 	t_philo				philo[MAX_PHILO];
 	long				start_time;
 	pthread_mutex_t		write_mutex;
@@ -75,13 +83,15 @@ long		calc_time(long now_time, long start_time);
 void		check_input(int argc, char const *argv[], t_arg *arg);
 void		create_threads(int argc, t_arg *arg);
 void		display_message(int id, long time_stamp, long philo_id, t_arg *arg);
-void		error_func(int id);
+// void		error_func(int id);
+void		error_func(int id, const char *str, int line);
 long		ft_atol(const char *str);
 int			ft_isdigit(int c);
 void		ft_putstr_fd(const char *s, int fd);
 size_t		ft_strlen(const char *s);
 void		init_arg(t_arg *arg);
 void		pick_up_fork(t_philo *philo, t_arg *arg);
+void		philo_sleep(t_philo *philo, t_arg *arg);
 void		put_down_fork(t_philo *philo, t_arg *arg);
 void		eat(t_philo *philo, t_arg *arg);
 void		think(t_philo *philo, t_arg *arg);

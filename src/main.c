@@ -12,6 +12,17 @@
 
 #include "philosophers.h"
 
+void	wait_close_threads(t_arg *arg)
+{
+	int		i;
+
+	i = 0;
+	while (i < arg->num_of_philo)
+	{
+		pthread_join(arg->philo[i].thread, NULL);
+		i++;
+	}
+}
 
 int main(int argc, char const *argv[])
 {
@@ -20,5 +31,6 @@ int main(int argc, char const *argv[])
 	check_input(argc, argv, &arg);
 	init_arg(&arg);
 	create_threads(argc, &arg);
+	wait_close_threads(&arg);
 	return (0);
 }

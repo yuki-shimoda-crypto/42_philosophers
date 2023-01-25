@@ -24,7 +24,8 @@ CFLAGS			=	-Wall -Wextra -Werror
 DEBUG_FLAGS		=	-g -fsanitize=address -fsanitize=leak -fsanitize=undefined -pthread
 DEBUG_FLAGS_MAC	=	-g -fsanitize=address -fsanitize=undefined -pthread
 GCC_FLAGS		=	
-THREAD_FLAGS	=	-g -fsanitize=undefined -fsanitize=thread -pthread
+# THREAD_FLAGS	=	-g -fsanitize=undefined -fsanitize=thread -pthread
+THREAD_FLAGS	=	-g -fsanitize=thread -pthread
 
 .c.o:
 				$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@

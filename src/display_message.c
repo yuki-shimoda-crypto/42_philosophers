@@ -31,8 +31,8 @@ void	display_message(int id, long time_stamp, long philo_id, t_arg *arg)
 		printf("%ld\t%ld died\n", time_stamp, philo_id);
 	if (pthread_mutex_unlock(&arg->write_mutex) != 0)
 	{
-		printf("%s\t%d\n", "display_message_pthread_mutex_lock", __LINE__);
-		error_func(ERROR_MUTEX_UNLOCK);
+	 	printf("%s\t%d\n", "display_message_pthread_mutex_lock", __LINE__);
+	 	error_func(ERROR_MUTEX_UNLOCK);
 	}
 	return ;
 }

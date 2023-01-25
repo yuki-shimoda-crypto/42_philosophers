@@ -84,6 +84,8 @@ void	init_arg(t_arg *arg)
 	arg->dead = false;
 	arg->finish = false;
 	init_arg_mutex(arg);
+	arg->monitor.arg = arg;
+	arg->monitor.id = 0;
 	i = 0;
 	while (i < MAX_PHILO)
 	{

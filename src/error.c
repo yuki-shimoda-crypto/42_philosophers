@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 12:39:35 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/01/23 14:26:49 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/01/25 18:10:38 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ static const char	*get_error_message(int id)
 	return ("Error\n");
 }
 
-void	error_func(int id)
+void	error_func(int id, const char *str, int line)
 {
-	const char	*str;
+	// remove func
+	printf("%s\t%d\n", str, line);
 
-	str = get_error_message(id);
-	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putstr_fd(get_error_message(id), STDERR_FILENO);
 	exit(EXIT_FAILURE);
 	return ;
 }

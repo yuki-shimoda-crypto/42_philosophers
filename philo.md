@@ -16,6 +16,8 @@
 1. create_threads
 	1. if num_of_must_eat != 0 (argc == 6) create observer
 	1. create philo threads
+	1. create monitor threads
+		- 
 1. destroy mutex
 
 

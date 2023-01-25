@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:17:12 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/01/25 08:17:22 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/01/25 17:40:27 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	pick_up_fork(t_philo *philo, t_arg *arg)
 {
 	if (pthread_mutex_lock(philo->fork_right_m) != 0)
 	{
-		printf("%s\t%d\n", "pick_up_fork_mutex_lock_1", __LINE__);
+		printf("%s\t%d\n", "pick_up_fork_mutex_lock", __LINE__);
 		error_func(ERROR_MUTEX_LOCK);
 	}
 	display_message(TYPE_PUT_FORK, calc_time(get_time(), arg->start_time), philo->id, arg);
 	if (pthread_mutex_lock(philo->fork_left_m) != 0)
 	{
-		printf("%s\t%d\n", "pick_up_fork_mutex_lock_2", __LINE__);
+		printf("%s\t%d\n", "pick_up_fork_mutex_lock", __LINE__);
 		error_func(ERROR_MUTEX_LOCK);
 	}
 	display_message(TYPE_PUT_FORK, calc_time(get_time(), arg->start_time), philo->id, arg);
@@ -41,17 +41,7 @@ void	put_down_fork(t_philo *philo, t_arg *arg)
 		error_func(ERROR_MUTEX_UNLOCK);
 	}
 
-	if (pthread_mutex_lock(&arg->write_mutex) != 0)
-	{
-		printf("%s\t%d\n", "put_down_fork-mutex_lock", __LINE__);
-		error_func(ERROR_MUTEX_LOCK);
-	}
 	display_message(TYPE_SLEEP, get_time() - arg->start_time, philo->id, arg);
-	if (pthread_mutex_unlock(&arg->write_mutex) != 0)
-	{
-		printf("%s\t%d\n", "put_down_fork-mutex_unlock", __LINE__);
-		error_func(ERROR_MUTEX_LOCK);
-	}
 	usleep(philo->arg->time_to_sleep * 800);
 	while (1)
 	{
@@ -102,20 +92,10 @@ void	eat(t_philo *philo, t_arg *arg)
 
 void	think(t_philo *philo, t_arg *arg)
 {
-	if (pthread_mutex_lock(&arg->write_mutex) != 0)
-	{
-		printf("%s\t%d\n", "think-mutex_lock", __LINE__);
-		error_func(ERROR_MUTEX_LOCK);
-	}
 	display_message(TYPE_THINK, get_time() - arg->start_time, philo->id, arg);
-	if (pthread_mutex_unlock(&arg->write_mutex) != 0)
-	{
-		printf("%s\t%d\n", "think-mutex_unlock", __LINE__);
-		error_func(ERROR_MUTEX_UNLOCK);
-	}
 }
 
-
-// void	sleep(t_philo *philo, t_arg *arg)
-// {
-// }
+void	philo_sleep(t_philo *philo, t_arg *arg)
+{
+	display_message(TYPE_SLEEP, get_time() - arg->start_time, philo->id, arg);
+}
