@@ -15,30 +15,15 @@
 static void	check_arg_num(t_arg *arg)
 {
 	if (arg->num_of_philo < 2 || MAX_PHILO < arg->num_of_philo)
-	{
-		printf("%s\t%d\n", "check_arg_num", __LINE__);
-		error_func(ERROR_ARG_INVALID);
-	}
+		error_func(ERROR_ARG_INVALID, "check_arg_num", __LINE__);
 	if (arg->time_to_die < 1)
-	{
-		printf("%s\t%d\n", "check_arg_num", __LINE__);
-		error_func(ERROR_ARG_INVALID);
-	}
+		error_func(ERROR_ARG_INVALID, "check_arg_num", __LINE__);
 	if (arg->time_to_eat < 1)
-	{
-		printf("%s\t%d\n", "check_arg_num", __LINE__);
-		error_func(ERROR_ARG_INVALID);
-	}
+		error_func(ERROR_ARG_INVALID, "check_arg_num", __LINE__);
 	if (arg->time_to_sleep < 1)
-	{
-		printf("%s\t%d\n", "check_arg_num", __LINE__);
-		error_func(ERROR_ARG_INVALID);
-	}
+		error_func(ERROR_ARG_INVALID, "check_arg_num", __LINE__);
 	if (arg->num_of_must_eat < 1)
-	{
-		printf("%s\t%d\n", "check_arg_num", __LINE__);
-		error_func(ERROR_ARG_INVALID);
-	}
+		error_func(ERROR_ARG_INVALID, "check_arg_num", __LINE__);
 	return ;
 }
 
@@ -65,19 +50,13 @@ static void	check_isnum(char const *argv[])
 	{
 		j = 0;
 		if (argv[i][0] == '\0')
-		{
-			printf("%s\t%d\n", "check_is_num", __LINE__);
-			error_func(ERROR_ARG_INVALID);
-		}
+			error_func(ERROR_ARG_INVALID, "check_is_num", __LINE__);
 		if (argv[i][j] == '+' || argv[i][j] == '-')
 			j++;
 		while (argv[i][j])
 		{
 			if (!ft_isdigit(argv[i][j]))
-			{
-				printf("%s\t%d\n", "check_is_num", __LINE__);
-				error_func(ERROR_ARG_INVALID);
-			}
+				error_func(ERROR_ARG_INVALID, "check_is_num", __LINE__);
 			j++;
 		}
 		i++;
@@ -87,12 +66,9 @@ static void	check_isnum(char const *argv[])
 static void	check_argc(int argc)
 {
 	if (argc < 5)
-	{
-		printf("%s\t%d\n", "check_argc", __LINE__);
-		error_func(ERROR_FEW_ARG);
-	}
+		error_func(ERROR_FEW_ARG, "check_argc", __LINE__);
 	else if (6 < argc)
-		error_func(ERROR_MANY_ARG, __func__, __LINE__);
+		error_func(ERROR_MANY_ARG, "check_argc", __LINE__);
 	return ;
 }
 

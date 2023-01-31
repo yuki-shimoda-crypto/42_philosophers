@@ -1,0 +1,6 @@
+==9487== Helgrind, a thread error detector
+==9487== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
+==9487== Using Valgrind-3.19.0 and LibVEX; rerun with -h for copyright info
+==9487== Command: ./philo 1 1000 100 100
+==9487== Parent PID: 5231
+==9487== 

@@ -11,14 +11,16 @@
 /* ************************************************************************** */
 
 #include "philosophers.h"
+#include <errno.h>
 
 void	display_message(int id, long time_stamp, long philo_id, t_arg *arg)
 {
 	if (pthread_mutex_lock(&arg->write_mutex) != 0)
 	{
-		printf("%s\t%d\n", "display_message_pthread_mutex_lock", __LINE__);
-		error_func(ERROR_MUTEX_LOCK);
+		printf("errno\t%d\n", errno);
+		error_func(ERROR_MUTEX_LOCK, "display_message_pthread_mutex_lock", __LINE__);
 	}
+	EINVAL
 	if (id == TYPE_PUT_FORK)
 		printf("%ld\t%ld has taken a fork\n", time_stamp, philo_id);
 	else if (id == TYPE_EAT)
@@ -30,9 +32,6 @@ void	display_message(int id, long time_stamp, long philo_id, t_arg *arg)
 	else if (id == TYPE_DIE)
 		printf("%ld\t%ld died\n", time_stamp, philo_id);
 	if (pthread_mutex_unlock(&arg->write_mutex) != 0)
-	{
-	 	printf("%s\t%d\n", "display_message_pthread_mutex_lock", __LINE__);
-	 	error_func(ERROR_MUTEX_UNLOCK);
-	}
+		error_func(ERROR_MUTEX_UNLOCK, "display_message_pthread_mutex_unlock", __LINE__);
 	return ;
 }

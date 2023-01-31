@@ -48,8 +48,9 @@ static void	*routine_philo(void *philo_void)
 	int		i = 0;
 
 	philo = philo_void;
-	if (philo->id % 2 == 0 || philo->id == philo->arg->num_of_philo)
-		usleep(100);
+	// if (philo->id % 2 == 0 || philo->id == philo->arg->num_of_philo)
+	if (philo->id % 2 == 0)
+		usleep(10);
 	philo->last_eat_time = get_time();
 	while (1)
 	{
@@ -87,10 +88,7 @@ void	create_threads(int argc, t_arg *arg)
 	while (i < arg->num_of_philo)
 	{
 		if (pthread_create(&arg->philo[i].thread, NULL, routine_philo, &arg->philo[i]) != 0)
-		{
-			printf("%s\t%d\n", "create_threads_pthread_create", __LINE__);
-			error_func(ERROR_PTHREAD_CREATE);
-		}
+			error_func(ERROR_PTHREAD_CREATE, "create_threads_pthread_create", __LINE__);
 		pthread_detach(arg->philo[i].thread);
 		// usleep?
 		i++;

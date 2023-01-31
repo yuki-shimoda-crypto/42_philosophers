@@ -19,15 +19,9 @@ static void	init_philo_mutex(t_philo *philo)
 //	if (pthread_mutex_init(philo->fork_left_m, NULL) != 0)
 //		error_func(ERROR_MUTEX_INIT);
 	if (pthread_mutex_init(&philo->last_eat_time_m, NULL) != 0)
-	{
-		printf("%s\t%d\n", "init_philo_mutex_1", __LINE__);
-		error_func(ERROR_MUTEX_INIT);
-	}
+		error_func(ERROR_MUTEX_INIT, "init_philo_mutex", __LINE__);
 	if (pthread_mutex_init(&philo->num_of_eaten_m, NULL) != 0)
-	{
-		printf("%s\t%d\n", "init_philo_mutex_2", __LINE__);
-		error_func(ERROR_MUTEX_INIT);
-	}
+		error_func(ERROR_MUTEX_INIT, "init_philo_mutex", __LINE__);
 	return ;
 }
 
@@ -50,28 +44,16 @@ static void	init_arg_mutex(t_arg *arg)
 	int		i;
 
 	if (pthread_mutex_init(&(arg->dead_m), NULL) != 0)
-	{
-		printf("%s\t%d\n", "init_arg_mutex", __LINE__);
-		error_func(ERROR_MUTEX_INIT);
-	}
+		error_func(ERROR_MUTEX_INIT, "init_arg_mutex", __LINE__);
 	if (pthread_mutex_init(&(arg->finish_m), NULL) != 0)
-	{
-		printf("%s\t%d\n", "init_arg_mutex", __LINE__);
-		error_func(ERROR_MUTEX_INIT);
-	}
+		error_func(ERROR_MUTEX_INIT, "init_arg_mutex", __LINE__);
 	if (pthread_mutex_init(&(arg->write_mutex), NULL) != 0)
-	{
-		printf("%s\t%d\n", "init_arg_mutex", __LINE__);
-		error_func(ERROR_MUTEX_INIT);
-	}
+		error_func(ERROR_MUTEX_INIT, "init_arg_mutex", __LINE__);
 	i = 0;
 	while (i < MAX_PHILO)
 	{
 		if (pthread_mutex_init(&(arg->fork_m[i]), NULL) != 0)
-		{
-			printf("%s\t%d\n", "init_arg_mutex", __LINE__);
-			error_func(ERROR_MUTEX_INIT);
-		}
+			error_func(ERROR_MUTEX_INIT, "init_arg_mutex", __LINE__);
 		i++;
 	}
 	return ;
