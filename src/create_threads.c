@@ -42,32 +42,42 @@
 // 	return (NULL);
 // }
 
+bool	print_action(t_arg *arg, long timestamp, int id, const char *action)
+{
+	if (pthread_mutex_lock(&arg->write_exit_mtx) != 0)
+		error_func(ERROR_MUTEX_LOCK, "print_action", __LINE__);
+	if (arg->is_exit)
+	{
+		if (pthread_mutex_unlock(&arg->write_exit_mtx) != 0)
+			error_func(ERROR_MUTEX_UNLOCK, "print_action", __LINE__);
+		return (false);
+	}
+	printf("%ld %d %s\n", timestamp, id, action);
+	pthread_mutex_unlock(&arg->write_exit_mtx);
+	return (true);
+}
+
 static void	*routine_philo(void *philo_void)
 {
 	t_philo	*philo;
-	int		i = 0;
 
 	philo = philo_void;
-	// if (philo->id % 2 == 0 || philo->id == philo->arg->num_of_philo)
-	if (philo->id % 2 == 0)
-		usleep(10);
-	philo->last_eat_time = get_time();
+	if (philo->id % 2 == 0 || philo->id == philo->arg->num_of_philo)
+	{
+		think(philo, philo->arg);
+		usleep(100);
+	}
+	philo->time_start = get_time();
+	philo->time_last_eat = get_time();
 	while (1)
 	{
+		if (!pick_up_fork(philo, philo->arg))
+			break ;
 		pick_up_fork(philo, philo->arg);
-		usleep(100);
 		eat(philo, philo->arg);
 		put_down_fork(philo, philo->arg);
-		usleep(100);
 		philo_sleep(philo, philo->arg);
-		usleep(100);
 		think(philo, philo->arg);
-		i++;
-		if (i == 5)
-		{
-			printf("%s\n", "finish");
-			break ;
-		}
 	}
 	return (NULL);
 }
@@ -76,13 +86,12 @@ void	create_threads(int argc, t_arg *arg)
 {
 	long	i;
 
-	arg->start_time = get_time();
 	if (argc == 6)
 	{
 		exit(EXIT_SUCCESS);
-		// if (pthread_create(&arg->philo[i].thread, NULL, monitor, &arg->philo[i]) != 0)
-		// {
-		// }
+	//	if (pthread_create(&arg->philo[i].thread, NULL, monitor, &arg->philo[i]) != 0)
+	//	{
+	//	}
 	}
 	i = 0;
 	while (i < arg->num_of_philo)

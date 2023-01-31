@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_time.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:20:19 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/01/25 18:10:12 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/01/31 17:46:48 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,9 @@ long	get_time(void)
 long	calc_time(long now_time, long start_time)
 {
 	return (now_time - start_time);
+}
+
+long	calc_elapsed_time(long start_time)
+{
+	return (get_time() - start_time);
 }

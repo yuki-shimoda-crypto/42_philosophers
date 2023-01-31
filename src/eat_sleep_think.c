@@ -6,20 +6,24 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:17:12 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/01/30 20:57:59 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/01/31 18:30:22 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	pick_up_fork(t_philo *philo, t_arg *arg)
+bool	pick_up_fork(t_philo *philo, t_arg *arg)
 {
+	if (!print_action(arg, calc_elapsed_time(philo->time_start), philo->id, TYPE_PUT_FORK) != 0)
+		return (false);
+		
 	if (pthread_mutex_lock(philo->fork_right_m) != 0)
 		error_func(ERROR_MUTEX_LOCK, "pick_up_fork_mutex_lock", __LINE__);
 	display_message(TYPE_PUT_FORK, calc_time(get_time(), arg->start_time), philo->id, arg);
 	if (pthread_mutex_lock(philo->fork_left_m) != 0)
 		error_func(ERROR_MUTEX_LOCK, "pick_up_fork_mutex_lock", __LINE__);
 	display_message(TYPE_PUT_FORK, calc_time(get_time(), arg->start_time), philo->id, arg);
+	return (true);
 }
 
 void	put_down_fork(t_philo *philo, t_arg *arg)
@@ -63,12 +67,27 @@ void	eat(t_philo *philo, t_arg *arg)
 	}
 }
 
-void	think(t_philo *philo, t_arg *arg)
+bool	think(t_philo *philo, t_arg *arg)
 {
-	display_message(TYPE_THINK, get_time() - arg->start_time, philo->id, arg);
+	if (!print_action(arg, calc_time(get_time(), philo->time_start), philo->id, TYPE_THINK))
+		return (false);
+	usleep(100);
+	return (true);
 }
 
-void	philo_sleep(t_philo *philo, t_arg *arg)
+static void	sleep_time_pass(t_philo *philo, long target_time)
 {
-	display_message(TYPE_SLEEP, get_time() - arg->start_time, philo->id, arg);
+	while (calc_elapsed_time(philo->time_start) < target_time)
+		usleep(100);
+}
+
+bool	philo_sleep(t_philo *philo, t_arg *arg)
+{
+	long	time_start_sleep;
+
+	time_start_sleep = calc_elapsed_time(philo->time_last_eat);
+	if (!print_action(arg, time_start_sleep, philo->id, TYPE_SLEEP))
+		return (false);
+	sleep_time_pass(philo, time_start_sleep + arg->time_to_sleep);
+	return (true);
 }
