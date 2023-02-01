@@ -12,36 +12,6 @@
 
 #include "philosophers.h"
 
-// static void	*threadfunc(void *philo_void)
-// {
-// 	(char *)philo;
-// 	return (NULL);
-// }
-
-// bool	is_hungry()
-// {
-// }
-
-// static bool	can_continue(t_arg *arg)
-// {
-// }
-
-// static void	*monitor(void *monitor_void)
-// {
-// 	t_monitor	*monitor;
-// 	bool		is_continue;
-// 	// int			i;
-	
-// 	monitor = monitor_void;
-// 	is_continue = true;
-// 	// i = 0;
-// 	// while (is_continue)
-// 	// {
-// 	// 	is_continue = can_continue(monitor->arg);
-// 	// }
-// 	return (NULL);
-// }
-
 bool	print_action(t_arg *arg, long timestamp, int id, const char *action)
 {
 	if (pthread_mutex_lock(&arg->write_exit_mtx) != 0)
@@ -60,24 +30,34 @@ bool	print_action(t_arg *arg, long timestamp, int id, const char *action)
 static void	*routine_philo(void *philo_void)
 {
 	t_philo	*philo;
+	t_arg	*arg;
 
 	philo = philo_void;
-	if (philo->id % 2 == 0 || philo->id == philo->arg->num_of_philo)
-	{
-		think(philo, philo->arg);
-		usleep(100);
-	}
+	arg = philo->arg;
+	pthread_mutex_lock(&arg->philo_mtx[philo->id - 1]);
 	philo->time_start = get_time();
-	philo->time_last_eat = get_time();
+	philo->time_last_eat = philo->time_start;
+	pthread_mutex_unlock(&arg->philo_mtx[philo->id - 1]);
+	if (philo->id % 2 == 0
+		|| (philo->id == arg->num_of_philo && arg->num_of_philo != 1))
+	{
+		think(philo, arg);
+		usleep(1000);
+	}
+	int		i = 0;
 	while (1)
 	{
-		if (!pick_up_fork(philo, philo->arg))
+		if (!pick_up_fork(philo, arg))
 			break ;
-		pick_up_fork(philo, philo->arg);
-		eat(philo, philo->arg);
-		put_down_fork(philo, philo->arg);
-		philo_sleep(philo, philo->arg);
-		think(philo, philo->arg);
+		if (!eat(philo, arg))
+			break ;
+		if (!philo_sleep(philo, arg))
+			break ;
+		if (!think(philo, arg))
+			break ;
+		i++;
+		if (i == 2)
+			break ;
 	}
 	return (NULL);
 }
@@ -98,10 +78,8 @@ void	create_threads(int argc, t_arg *arg)
 	{
 		if (pthread_create(&arg->philo[i].thread, NULL, routine_philo, &arg->philo[i]) != 0)
 			error_func(ERROR_PTHREAD_CREATE, "create_threads_pthread_create", __LINE__);
-		pthread_detach(arg->philo[i].thread);
-		// usleep?
 		i++;
-		usleep(100);
+		usleep(50);
 	}
 	return ;
 }

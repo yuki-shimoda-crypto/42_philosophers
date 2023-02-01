@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:44:08 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/01/24 19:11:15 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/01 13:51:47 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ typedef struct s_philo
 {
 	int				id;
 	pthread_t		thread;
-	pthread_mutex_t	*fork_left_m;
-	pthread_mutex_t	*fork_right_m;
+	pthread_mutex_t	*fork_left_mtx;
+	pthread_mutex_t	*fork_right_mtx;
 }	t_philo;
 
 typedef struct s_arg
@@ -106,13 +106,13 @@ void	*eat(void *philo_void)
 	philo = (t_philo *)philo_void;
 	while (1)
 	{
-		pthread_mutex_lock(&philo->fork_left_m);
+		pthread_mutex_lock(&philo->fork_left_mtx);
 		if ()
 			return ();
-		pthread_mutex_unlock(&philo->fork_left_m);
+		pthread_mutex_unlock(&philo->fork_left_mtx);
 		printf("%d\n", philo->id);
-		pthread_mutex_lock(&philo->fork_right_m);
-		pthread_mutex_unlock(&philo->fork_right_m);
+		pthread_mutex_lock(&philo->fork_right_mtx);
+		pthread_mutex_unlock(&philo->fork_right_mtx);
 	}
 	return (NULL);
 }
@@ -129,8 +129,8 @@ int main(void)
 	i = 0;
 	while (i < 2)
 	{
-		arg.philo[i].fork_right_m = &arg.fork_m[i % 2];
-		arg.philo[i].fork_left_m = &arg.fork_m[(i + 1) % 2];
+		arg.philo[i].fork_right_mtx = &arg.fork_m[i % 2];
+		arg.philo[i].fork_left_mtx = &arg.fork_m[(i + 1) % 2];
 		arg.philo[i].id = i + 1;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:54:10 by fedora            #+#    #+#             */
-/*   Updated: 2023/01/31 17:47:02 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/02 06:00:35 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@
 # define ERROR_PTHREAD_CREATE 5
 # define ERROR_MUTEX_LOCK 6
 # define ERROR_MUTEX_UNLOCK 7
+# define ERROR_PTHREAD_JOIN 8
 
-# define TYPE_PUT_FORK "has taken a fork"
+# define TYPE_TAKE_FORK "has taken a fork"
 # define TYPE_EAT "is eating"
 # define TYPE_SLEEP "is sleeping"
 # define TYPE_THINK "is thinking"
@@ -42,10 +43,11 @@
 typedef struct s_philo
 {
 	struct s_arg	*arg;
-	pthread_mutex_t	*fork_left_m;
-	pthread_mutex_t	*fork_right_m;
+	pthread_mutex_t	*fork_left_mtx;
+	pthread_mutex_t	*fork_right_mtx;
 	int				id;
 	int				num_of_eaten;
+	long			time_end_take_fork;
 	long			time_last_eat;
 	long			time_start;
 	pthread_t		thread;
@@ -79,11 +81,11 @@ int			ft_isdigit(int c);
 void		ft_putstr_fd(const char *s, int fd);
 size_t		ft_strlen(const char *s);
 void		init_arg(t_arg *arg);
-void		pick_up_fork(t_philo *philo, t_arg *arg);
-void		philo_sleep(t_philo *philo, t_arg *arg);
+bool		pick_up_fork(t_philo *philo, t_arg *arg);
+bool		philo_sleep(t_philo *philo, t_arg *arg);
 bool		print_action(t_arg *arg, long timestamp, int id, const char *action);
-void		put_down_fork(t_philo *philo, t_arg *arg);
-void		eat(t_philo *philo, t_arg *arg);
-void		think(t_philo *philo, t_arg *arg);
+bool		put_down_fork(t_philo *philo, t_arg *arg);
+bool		eat(t_philo *philo, t_arg *arg);
+bool		think(t_philo *philo, t_arg *arg);
 
 #endif

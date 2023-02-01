@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:20:19 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/01/31 17:46:48 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/02 03:44:26 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ long	get_time(void)
 	return (timeval.tv_sec * 1000 + timeval.tv_usec / 1000);
 }
 
-long	calc_time(long now_time, long start_time)
-{
-	return (now_time - start_time);
-}
+// long	calc_time(long now_time, long start_time)
+// {
+// 	return (now_time - start_time);
+// }
 
 long	calc_elapsed_time(long start_time)
 {

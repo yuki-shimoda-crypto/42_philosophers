@@ -32,8 +32,8 @@
 typedef struct s_philo
 {
 	struct s_arg	*arg;
-	pthread_mutex_t	*fork_left_m;
-	pthread_mutex_t	*fork_right_m;
+	pthread_mutex_t	*fork_left_mtx;
+	pthread_mutex_t	*fork_right_mtx;
 	int				id;
 	long			last_eat_time;
 	pthread_mutex_t	last_eat_time_m;

@@ -19,7 +19,8 @@ void	wait_close_threads(t_arg *arg)
 	i = 0;
 	while (i < arg->num_of_philo)
 	{
-		pthread_join(arg->philo[i].thread, NULL);
+		if (pthread_join(arg->philo[i].thread, NULL) != 0)
+			error_func(ERROR_PTHREAD_JOIN, "wait_close_threads", __LINE__);
 		i++;
 	}
 }
