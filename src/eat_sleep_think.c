@@ -6,20 +6,26 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:17:12 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/02/02 06:03:20 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/02 06:40:04 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	time_wait(long last_time, long wait_time)
+void	time_wait(long target_time, t_philo *philo)
 {
-	while (1)
+//	while (1)
+//	{
+//		if (get_time() - last_time >= wait_time)
+//			break ;
+//		usleep(100);
+//	}
+	while (calc_elapsed_time(philo->time_start) < target_time)
 	{
-		if (get_time() - last_time >= wait_time)
-			break ;
+		// printf("%d\n", 1);
 		usleep(100);
 	}
+
 }
 
 bool	pick_up_fork(t_philo *philo, t_arg *arg)
@@ -72,7 +78,7 @@ bool	eat(t_philo *philo, t_arg *arg)
 	philo->time_last_eat = get_time();
 	pthread_mutex_unlock(&arg->philo_mtx[philo->id - 1]);
 	// usleep(arg->time_to_eat * 800);
-	time_wait(philo->time_last_eat, arg->time_to_eat);
+	time_wait(philo->time_end_take_fork + arg->time_to_eat, philo);
 	pthread_mutex_unlock(philo->fork_right_mtx);
 	pthread_mutex_unlock(philo->fork_left_mtx);
 	pthread_mutex_lock(&arg->philo_mtx[philo->id - 1]);
@@ -88,7 +94,7 @@ bool	philo_sleep(t_philo *philo, t_arg *arg)
 	time_start_sleep = calc_elapsed_time(philo->time_start);
 	if (!print_action(arg, time_start_sleep, philo->id, TYPE_SLEEP))
 		return (false);
-	time_wait(time_start_sleep, arg->time_to_sleep);
+	time_wait(time_start_sleep + arg->time_to_sleep, philo);
 	return (true);
 }
 
@@ -96,5 +102,6 @@ bool	think(t_philo *philo, t_arg *arg)
 {
 	if (!print_action(arg, calc_elapsed_time(philo->time_start), philo->id, TYPE_THINK))
 		return (false);
+	usleep(100);
 	return (true);
 }

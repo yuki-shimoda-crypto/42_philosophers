@@ -42,7 +42,7 @@ static void	*routine_philo(void *philo_void)
 		|| (philo->id == arg->num_of_philo && arg->num_of_philo != 1))
 	{
 		think(philo, arg);
-		usleep(1000);
+		usleep(70);
 	}
 	int		i = 0;
 	while (1)
@@ -56,8 +56,8 @@ static void	*routine_philo(void *philo_void)
 		if (!think(philo, arg))
 			break ;
 		i++;
-		if (i == 2)
-			break ;
+		// if (i == 2)
+			// break ;
 	}
 	return (NULL);
 }
@@ -79,7 +79,7 @@ void	create_threads(int argc, t_arg *arg)
 		if (pthread_create(&arg->philo[i].thread, NULL, routine_philo, &arg->philo[i]) != 0)
 			error_func(ERROR_PTHREAD_CREATE, "create_threads_pthread_create", __LINE__);
 		i++;
-		usleep(50);
+		// usleep(50);
 	}
 	return ;
 }
