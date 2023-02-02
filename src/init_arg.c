@@ -50,6 +50,7 @@ void	init_arg(t_arg *arg)
 {
 	int		i;
 
+	arg->dead_num = 0;
 	arg->is_exit = false;
 	init_arg_mutex(arg);
 	i = 0;

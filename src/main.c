@@ -38,8 +38,8 @@ void	wait_close_threads(t_arg *arg)
 			error_func(ERROR_PTHREAD_JOIN, "wait_close_threads", __LINE__);
 		i++;
 	}
-	// if (pthread_join(arg->thread_monitor, NULL) != 0)
-	// 	error_func(ERROR_PTHREAD_JOIN, "wait_close_threads", __LINE__);
+	if (pthread_join(arg->thread_monitor, NULL) != 0)
+		error_func(ERROR_PTHREAD_JOIN, "wait_close_threads", __LINE__);
 }
 
 int main(int argc, char const *argv[])
@@ -50,6 +50,6 @@ int main(int argc, char const *argv[])
 	init_arg(&arg);
 	create_threads(&arg);
 	wait_close_threads(&arg);
-	// terminate_arg(&arg);
+	terminate_arg(&arg);
 	return (0);
 }

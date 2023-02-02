@@ -14,7 +14,7 @@
 
 static void	check_arg_num(t_arg *arg)
 {
-	if (arg->num_of_philo < 2 || MAX_PHILO < arg->num_of_philo)
+	if (arg->num_of_philo < 1 || MAX_PHILO < arg->num_of_philo)
 		error_func(ERROR_ARG_INVALID, "check_arg_num", __LINE__);
 	if (arg->time_to_die < 1)
 		error_func(ERROR_ARG_INVALID, "check_arg_num", __LINE__);

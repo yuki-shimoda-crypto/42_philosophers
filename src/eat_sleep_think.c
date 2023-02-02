@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:17:12 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/02/02 06:40:04 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/02 19:39:27 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,8 @@
 
 void	time_wait(long target_time, t_philo *philo)
 {
-//	while (1)
-//	{
-//		if (get_time() - last_time >= wait_time)
-//			break ;
-//		usleep(100);
-//	}
 	while (calc_elapsed_time(philo->time_start) < target_time)
-	{
-		// printf("%d\n", 1);
 		usleep(100);
-	}
-
 }
 
 bool	pick_up_fork(t_philo *philo, t_arg *arg)
@@ -35,8 +25,7 @@ bool	pick_up_fork(t_philo *philo, t_arg *arg)
 	{
 		pthread_mutex_unlock(philo->fork_right_mtx);
 		if (arg->num_of_philo == 1)
-			usleep(arg->time_to_die * 1000 + 5000);
-			// usleep(arg->time_to_die * 1000 + 100);
+			usleep(arg->time_to_die * 1000 + 100);
 		return (false);
 	}
 	pthread_mutex_lock(philo->fork_left_mtx);
