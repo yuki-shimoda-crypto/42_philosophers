@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:54:10 by fedora            #+#    #+#             */
-/*   Updated: 2023/02/02 19:29:12 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/02 20:19:20 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,9 @@ typedef struct s_arg
 
 long		get_time(void);
 long		calc_time(long now_time, long start_time);
-long		calc_elapsed_time(long start_time);
+long		calc_elapsed_time(long *start_time);
 void		check_input(int argc, char const *argv[], t_arg *arg);
 void		create_threads(t_arg *arg);
-// void		error_func(int id);
 void		error_func(int id, const char *str, int line);
 long		ft_atol(const char *str);
 int			ft_isdigit(int c);

@@ -20,7 +20,7 @@ static bool	is_philo_starve(t_arg *arg)
 	while (i < arg->num_of_philo)
 	{
 		pthread_mutex_lock(&arg->philo_mtx[i]);
-		if (arg->time_to_die < calc_elapsed_time(arg->philo[i].time_last_eat))
+		if (arg->time_to_die < calc_elapsed_time(&arg->philo[i].time_last_eat))
 		{
 			arg->dead_num = i;
 			return (true);
@@ -69,7 +69,7 @@ static void	*monitor(void *arg_void)
 		usleep(1000);
 	}
 	pthread_mutex_lock(&arg->write_exit_mtx);
-	printf("%ld %d %s\n", calc_elapsed_time(arg->philo[arg->dead_num].time_start), arg->dead_num + 1, TYPE_DIE);
+	printf("%ld %d %s\n", calc_elapsed_time(&arg->philo[arg->dead_num].time_start), arg->dead_num + 1, TYPE_DIE);
 	arg->is_exit = true;
 	pthread_mutex_unlock(&arg->write_exit_mtx);
 	return (NULL);
@@ -108,7 +108,6 @@ static void	*routine_philo(void *philo_void)
 		think(philo, arg);
 		usleep(100);
 	}
-	int		i = 0;
 	while (1)
 	{
 		if (!pick_up_fork(philo, arg))
@@ -119,23 +118,20 @@ static void	*routine_philo(void *philo_void)
 			break ;
 		if (!think(philo, arg))
 			break ;
-		i++;
 	}
 	return (NULL);
 }
 
 void	create_threads(t_arg *arg)
 {
-	long		i;
+	int		i;
 
 	i = 0;
 	while (i < arg->num_of_philo)
 	{
-		if (pthread_create(&arg->philo[i].thread, NULL, routine_philo, &arg->philo[i]) != 0)
-			error_func(ERROR_PTHREAD_CREATE, "create_threads_pthread_create", __LINE__);
+		pthread_create(&arg->philo[i].thread, NULL, routine_philo, &arg->philo[i]);
 		i++;
 	}
-	if (pthread_create(&arg->thread_monitor, NULL, monitor, arg) != 0)
-		error_func(ERROR_PTHREAD_CREATE, "create_threads_pthread_create", __LINE__);
+	pthread_create(&arg->thread_monitor, NULL, monitor, arg);
 	return ;
 }
