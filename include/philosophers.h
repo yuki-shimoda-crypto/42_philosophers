@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:54:10 by fedora            #+#    #+#             */
-/*   Updated: 2023/02/04 03:49:47 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/04 03:52:51 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,12 @@ void		ft_putstr_fd(const char *s, int fd);
 size_t		ft_strlen(const char *s);
 long		get_time(void);
 void		init_arg(t_arg *arg);
+void		*monitor(void *arg_void);
 bool		pick_up_fork(t_philo *philo, t_arg *arg);
 bool		philo_sleep(t_philo *philo, t_arg *arg);
 bool		print_action(t_arg *arg, long timestamp, int *id, const char *action);
-bool		put_down_fork(t_philo *philo, t_arg *arg);
+void		terminate_arg(t_arg *arg);
 bool		think(t_philo *philo, t_arg *arg);
-void		*monitor(void *arg_void);
+void		wait_close_threads(t_arg *arg);
 
 #endif
