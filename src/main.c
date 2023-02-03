@@ -6,13 +6,11 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:02:42 by fedora            #+#    #+#             */
-/*   Updated: 2023/02/04 03:51:34 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/04 05:33:45 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-
 
 int	main(int argc, char const *argv[])
 {
