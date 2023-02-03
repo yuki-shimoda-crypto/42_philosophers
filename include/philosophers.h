@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:54:10 by fedora            #+#    #+#             */
-/*   Updated: 2023/02/04 03:39:21 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/04 03:49:47 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ typedef struct s_arg
 	int					dead_num;
 	bool				is_exit;
 	t_philo				philo[MAX_PHILO];
-	long				time_start;
 	pthread_mutex_t		fork_mtx[MAX_PHILO];
 	pthread_mutex_t		philo_mtx[MAX_PHILO];
 	pthread_mutex_t		write_exit_mtx;

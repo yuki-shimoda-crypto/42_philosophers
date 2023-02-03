@@ -12,7 +12,16 @@
 
 NAME			=	philo
 
-SRCS			=	$(shell find src/ -name "*.c")
+SRCS			=	src/check.c				\
+					src/create_threads.c	\
+					src/eat_sleep_think.c	\
+					src/error.c				\
+					src/init_arg.c			\
+					src/libft.c				\
+					src/main.c				\
+					src/monitor.c			\
+					src/utils.c				\
+					src/utils_time.c
 
 OBJS			=	$(SRCS:.c=.o)
 
@@ -23,8 +32,6 @@ CC				=	cc
 CFLAGS			=	-Wall -Wextra -Werror
 DEBUG_FLAGS		=	-g -fsanitize=address -fsanitize=leak -fsanitize=undefined -pthread
 DEBUG_FLAGS_MAC	=	-g -fsanitize=address -fsanitize=undefined -pthread
-GCC_FLAGS		=	
-# THREAD_FLAGS	=	-g -fsanitize=undefined -fsanitize=thread -pthread
 THREAD_FLAGS	=	-g -fsanitize=thread -pthread
 
 .c.o:
@@ -59,10 +66,6 @@ PHONY			+=	thread
 thread:			CFLAGS +=	$(THREAD_FLAGS)
 thread:			re
 
-PHONY			+=	gcc
-gcc:			CFLAGS =	$(GCC_FLAGS)
-gcc:			re
-
 PHONY			+=	valgrind
 valgrind:		all
 				# valgrind --log-file=$(PWD)/log.txt --leak-check=full --tool=memcheck --leak-check=yes --show-reachable=yes --tool=helgrind ./$(NAME)
@@ -71,6 +74,5 @@ valgrind:		all
 PHONY			+=	do
 do:				all
 				while [ 1 ]; do ./$(NAME) 200 1000 100 100 | tee -a output.txt && sleep 1;done
-
 
 .PHONY:			$(PHONY)
