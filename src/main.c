@@ -26,7 +26,6 @@ void	terminate_arg(t_arg *arg)
 	pthread_mutex_destroy(&arg->write_exit_mtx);
 }
 
-
 void	wait_close_threads(t_arg *arg)
 {
 	int		i;
@@ -34,12 +33,10 @@ void	wait_close_threads(t_arg *arg)
 	i = 0;
 	while (i < arg->num_of_philo)
 	{
-		if (pthread_join(arg->philo[i].thread, NULL) != 0)
-			error_func(ERROR_PTHREAD_JOIN, "wait_close_threads", __LINE__);
+		pthread_join(arg->philo[i].thread, NULL);
 		i++;
 	}
-	if (pthread_join(arg->thread_monitor, NULL) != 0)
-		error_func(ERROR_PTHREAD_JOIN, "wait_close_threads", __LINE__);
+	pthread_join(arg->thread_monitor, NULL);
 }
 
 int main(int argc, char const *argv[])

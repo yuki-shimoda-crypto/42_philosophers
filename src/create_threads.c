@@ -12,83 +12,12 @@
 
 #include "philosophers.h"
 
-static bool	is_philo_starve(t_arg *arg)
+static inline void	init_time(t_philo *philo, t_arg *arg)
 {
-	int	i;
-
-	i = 0;
-	while (i < arg->num_of_philo)
-	{
-		pthread_mutex_lock(&arg->philo_mtx[i]);
-		if (arg->time_to_die < calc_elapsed_time(&arg->philo[i].time_last_eat))
-		{
-			arg->dead_num = i;
-			return (true);
-		}
-		pthread_mutex_unlock(&arg->philo_mtx[i]);
-		i++;
-	}
-	return (false);
-}
-
-
-static bool	is_num_of_eat_reached(t_arg *arg)
-{
-	int	i;
-
-	i = 0;
-	while (i < arg->num_of_philo)
-	{
-		pthread_mutex_lock(&arg->philo_mtx[i]);
-		if (arg->num_of_must_eat <= arg->philo[i].num_of_eaten)
-		{
-			pthread_mutex_unlock(&arg->philo_mtx[i]);
-			return (true);
-		}
-		pthread_mutex_unlock(&arg->philo_mtx[i]);
-		i++;
-	}
-	return (false);
-}
-
-
-static void	*monitor(void *arg_void)
-{
-	t_philo	*philo;
-	t_arg	*arg;
-
-	arg = arg_void;
-	philo = arg->philo;
-	usleep(arg->time_to_die / 2);
-	while (1)
-	{
-		if (is_num_of_eat_reached(arg))
-			break ;
-		if (is_philo_starve(arg))
-			break ;
-		usleep(1000);
-	}
-	pthread_mutex_lock(&arg->write_exit_mtx);
-	printf("%ld %d %s\n", calc_elapsed_time(&arg->philo[arg->dead_num].time_start), arg->dead_num + 1, TYPE_DIE);
-	arg->is_exit = true;
-	pthread_mutex_unlock(&arg->write_exit_mtx);
-	return (NULL);
-}
-
-
-bool	print_action(t_arg *arg, long timestamp, int id, const char *action)
-{
-	if (pthread_mutex_lock(&arg->write_exit_mtx) != 0)
-		error_func(ERROR_MUTEX_LOCK, "print_action", __LINE__);
-	if (arg->is_exit)
-	{
-		if (pthread_mutex_unlock(&arg->write_exit_mtx) != 0)
-			error_func(ERROR_MUTEX_UNLOCK, "print_action", __LINE__);
-		return (false);
-	}
-	printf("%ld %d %s\n", timestamp, id, action);
-	pthread_mutex_unlock(&arg->write_exit_mtx);
-	return (true);
+	pthread_mutex_lock(&arg->philo_mtx[philo->id - 1]);
+	philo->time_start = get_time();
+	philo->time_last_eat = philo->time_start;
+	pthread_mutex_unlock(&arg->philo_mtx[philo->id - 1]);
 }
 
 static void	*routine_philo(void *philo_void)
@@ -98,10 +27,7 @@ static void	*routine_philo(void *philo_void)
 
 	philo = philo_void;
 	arg = philo->arg;
-	pthread_mutex_lock(&arg->philo_mtx[philo->id - 1]);
-	philo->time_start = get_time();
-	philo->time_last_eat = philo->time_start;
-	pthread_mutex_unlock(&arg->philo_mtx[philo->id - 1]);
+	init_time(philo, arg);
 	if (philo->id % 2 == 0
 		|| (philo->id == arg->num_of_philo && arg->num_of_philo != 1))
 	{

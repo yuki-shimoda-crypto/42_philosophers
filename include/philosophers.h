@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:54:10 by fedora            #+#    #+#             */
-/*   Updated: 2023/02/02 20:19:20 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/03 10:04:55 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,10 @@ size_t		ft_strlen(const char *s);
 void		init_arg(t_arg *arg);
 bool		pick_up_fork(t_philo *philo, t_arg *arg);
 bool		philo_sleep(t_philo *philo, t_arg *arg);
-bool		print_action(t_arg *arg, long timestamp, int id, const char *action);
+bool		print_action(t_arg *arg, long timestamp, int *id, const char *action);
 bool		put_down_fork(t_philo *philo, t_arg *arg);
 bool		eat(t_philo *philo, t_arg *arg);
 bool		think(t_philo *philo, t_arg *arg);
+void		*monitor(void *arg_void);
 
 #endif

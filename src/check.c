@@ -63,7 +63,7 @@ static void	check_isnum(char const *argv[])
 	}
 }
 
-static void	check_argc(int argc)
+static inline void	check_argc(int argc)
 {
 	if (argc < 5)
 		error_func(ERROR_FEW_ARG, "check_argc", __LINE__);
