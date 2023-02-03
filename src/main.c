@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:02:42 by fedora            #+#    #+#             */
-/*   Updated: 2023/01/17 13:33:57y yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/03 20:29:09 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	wait_close_threads(t_arg *arg)
 	pthread_join(arg->thread_monitor, NULL);
 }
 
-int main(int argc, char const *argv[])
+int	main(int argc, char const *argv[])
 {
 	t_arg	arg;
 

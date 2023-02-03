@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_var.c                                         :+:      :+:    :+:   */
+/*   init_arg.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 10:56:39 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/01/23 05:05:09by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/03 20:29:38 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,11 @@ static void	init_arg_mutex(t_arg *arg)
 	i = 0;
 	while (i < arg->num_of_philo)
 	{
-		if (pthread_mutex_init(&arg->fork_mtx[i], NULL) != 0)
-			error_func(ERROR_MUTEX_INIT, "init_arg_mutex", __LINE__);
-		if (pthread_mutex_init(&arg->philo_mtx[i], NULL) != 0)
-			error_func(ERROR_MUTEX_INIT, "init_arg_mutex", __LINE__);
+		pthread_mutex_init(&arg->fork_mtx[i], NULL);
+		pthread_mutex_init(&arg->philo_mtx[i], NULL);
 		i++;
 	}
-	if (pthread_mutex_init(&arg->write_exit_mtx, NULL) != 0)
-		error_func(ERROR_MUTEX_INIT, "init_arg_mutex", __LINE__);
+	pthread_mutex_init(&arg->write_exit_mtx, NULL);
 	return ;
 }
 

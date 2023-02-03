@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:20:19 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/02/02 20:18:34 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/03 20:22:12 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ inline long	get_time(void)
 {
 	struct timeval	timeval;
 
-	if (gettimeofday(&timeval, NULL) != 0)
-		error_func(ERROR_GET_TIME, __func__, __LINE__);
+	gettimeofday(&timeval, NULL);
 	return (timeval.tv_sec * 1000 + timeval.tv_usec / 1000);
 }
 

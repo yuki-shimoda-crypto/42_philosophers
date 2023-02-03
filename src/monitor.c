@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:04:23 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/02/03 13:31:32 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/03 20:39:35 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ void	*monitor(void *arg_void)
 		if (is_philo_starve(arg))
 		{
 			pthread_mutex_lock(&arg->write_exit_mtx);
-			printf("%ld %d %s\n", calc_elapsed_time(&arg->philo[arg->dead_num].time_start), arg->dead_num + 1, TYPE_DIE);
+			printf("%ld %d %s\n",
+				calc_elapsed_time(&arg->philo[arg->dead_num].time_start),
+				arg->dead_num + 1, TYPE_DIE);
 			arg->is_exit = true;
 			pthread_mutex_unlock(&arg->write_exit_mtx);
 			break ;
@@ -74,7 +76,6 @@ void	*monitor(void *arg_void)
 			pthread_mutex_unlock(&arg->write_exit_mtx);
 			break ;
 		}
-		usleep(50);
 	}
 	return (NULL);
 }

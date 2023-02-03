@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:54:10 by fedora            #+#    #+#             */
-/*   Updated: 2023/02/03 10:04:55 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/03 18:40:53 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 
 # define MAX_PHILO 200
 
-# define ERROR_FEW_ARG 0
-# define ERROR_MANY_ARG 1
-# define ERROR_ARG_INVALID 2
-# define ERROR_MUTEX_INIT 3
-# define ERROR_GET_TIME 4
-# define ERROR_PTHREAD_CREATE 5
-# define ERROR_MUTEX_LOCK 6
-# define ERROR_MUTEX_UNLOCK 7
-# define ERROR_PTHREAD_JOIN 8
+# define ERROR_FEW_ARG "Error, too few arguments\n"
+# define ERROR_MANY_ARG "Error, too many arguments\n"
+# define ERROR_ARG_INVALID "Error, arguments is invalid\n"
+// # define ERROR_MUTEX_INIT 3
+// # define ERROR_GET_TIME 4
+// # define ERROR_PTHREAD_CREATE 5
+// # define ERROR_MUTEX_LOCK 6
+// # define ERROR_MUTEX_UNLOCK 7
+// # define ERROR_PTHREAD_JOIN 8
 
 # define TYPE_TAKE_FORK "has taken a fork"
 # define TYPE_EAT "is eating"
@@ -75,7 +75,8 @@ long		calc_time(long now_time, long start_time);
 long		calc_elapsed_time(long *start_time);
 void		check_input(int argc, char const *argv[], t_arg *arg);
 void		create_threads(t_arg *arg);
-void		error_func(int id, const char *str, int line);
+// void		error_func(int id, const char *str, int line);
+void		error_func(const char *str);
 long		ft_atol(const char *str);
 int			ft_isdigit(int c);
 void		ft_putstr_fd(const char *s, int fd);
