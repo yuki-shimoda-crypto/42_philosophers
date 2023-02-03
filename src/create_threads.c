@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 19:53:06 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/02/03 20:30:36 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/04 03:39:59 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	create_threads(t_arg *arg)
 	int		i;
 
 	i = 0;
+	arg->time_start = get_time();
 	while (i < arg->num_of_philo)
 	{
 		pthread_create(&arg->philo[i].thread, NULL,
