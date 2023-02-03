@@ -12,6 +12,8 @@
 
 #include "philosophers.h"
 
+
+
 static void	check_arg_num(t_arg *arg)
 {
 	if (arg->num_of_philo < 1 || MAX_PHILO < arg->num_of_philo)

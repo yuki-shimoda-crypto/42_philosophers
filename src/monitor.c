@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:04:23 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/02/03 10:15:54 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/03 13:31:32 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static bool	is_philo_starve(t_arg *arg)
 		pthread_mutex_lock(&arg->philo_mtx[i]);
 		if (arg->time_to_die < calc_elapsed_time(&arg->philo[i].time_last_eat))
 		{
+			pthread_mutex_unlock(&arg->philo_mtx[i]);
 			arg->dead_num = i;
 			return (true);
 		}
@@ -58,17 +59,17 @@ void	*monitor(void *arg_void)
 	usleep(arg->time_to_die / 2);
 	while (1)
 	{
-		if (is_num_of_eat_reached(arg))
-		{
-			pthread_mutex_lock(&arg->write_exit_mtx);
-			arg->is_exit = true;
-			pthread_mutex_unlock(&arg->write_exit_mtx);
-			break ;
-		}
 		if (is_philo_starve(arg))
 		{
 			pthread_mutex_lock(&arg->write_exit_mtx);
 			printf("%ld %d %s\n", calc_elapsed_time(&arg->philo[arg->dead_num].time_start), arg->dead_num + 1, TYPE_DIE);
+			arg->is_exit = true;
+			pthread_mutex_unlock(&arg->write_exit_mtx);
+			break ;
+		}
+		if (is_num_of_eat_reached(arg))
+		{
+			pthread_mutex_lock(&arg->write_exit_mtx);
 			arg->is_exit = true;
 			pthread_mutex_unlock(&arg->write_exit_mtx);
 			break ;
