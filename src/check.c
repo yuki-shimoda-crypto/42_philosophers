@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 12:06:13 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/02/03 21:27:17by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/03 21:31:17 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	check_arg_num(t_arg *arg, int argc)
 		error_func(ERROR_ARG_INVALID);
 	if (arg->time_to_sleep < 1 || INT_MAX < arg->time_to_sleep)
 		error_func(ERROR_ARG_INVALID);
-	if (argc == 6 &&
+	if (argc == 6 && \
 		(arg->num_of_must_eat < 1 || INT_MAX < arg->num_of_must_eat))
 		error_func(ERROR_ARG_INVALID);
 	return ;

@@ -4,7 +4,6 @@
 タイムスタンプを共通化する。
 int max 以上はじく
 
-
 ## Flow
 1. check input
 	1. argc is 5 or 6
