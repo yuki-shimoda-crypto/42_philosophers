@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:54:10 by fedora            #+#    #+#             */
-/*   Updated: 2023/02/04 05:33:30 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/04 14:44:21 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@
 # define ERROR_FEW_ARG "Error, too few arguments\n"
 # define ERROR_MANY_ARG "Error, too many arguments\n"
 # define ERROR_ARG_INVALID "Error, arguments is invalid\n"
-// # define ERROR_MUTEX_INIT 3
-// # define ERROR_GET_TIME 4
-// # define ERROR_PTHREAD_CREATE 5
-// # define ERROR_MUTEX_LOCK 6
-// # define ERROR_MUTEX_UNLOCK 7
-// # define ERROR_PTHREAD_JOIN 8
 
 # define TYPE_TAKE_FORK "has taken a fork"
 # define TYPE_EAT "is eating"
@@ -47,9 +41,9 @@ typedef struct s_philo
 	pthread_mutex_t	*fork_right_mtx;
 	int				id;
 	int				num_of_eaten;
-	long			time_end_take_fork;
-	long			time_last_eat;
-	long			time_start;
+	time_t			time_end_take_fork;
+	time_t			time_last_eat;
+	time_t			time_start;
 	pthread_t		thread;
 }	t_philo;
 

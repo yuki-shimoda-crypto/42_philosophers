@@ -15,7 +15,6 @@ NAME			=	philo
 SRCS			=	src/check.c				\
 					src/create_threads.c	\
 					src/eat_sleep_think.c	\
-					src/error.c				\
 					src/init_arg.c			\
 					src/libft.c				\
 					src/main.c				\
