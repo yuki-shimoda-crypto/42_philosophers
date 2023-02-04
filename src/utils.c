@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 09:13:42 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/02/04 03:51:44 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/04 06:50:15 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,11 @@ bool	print_action(t_arg *arg, long timestamp, int *id, const char *action)
 	printf("%ld %d %s\n", timestamp, *id, action);
 	pthread_mutex_unlock(&arg->write_exit_mtx);
 	return (true);
+}
+
+void	error_func(const char *str)
+{
+	ft_putstr_fd(str, STDERR_FILENO);
+	exit(EXIT_FAILURE);
+	return ;
 }
