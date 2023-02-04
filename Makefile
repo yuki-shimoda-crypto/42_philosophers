@@ -68,7 +68,7 @@ thread:			re
 PHONY			+=	valgrind
 valgrind:		all
 				# valgrind --log-file=$(PWD)/log.txt --leak-check=full --tool=memcheck --leak-check=yes --show-reachable=yes --tool=helgrind ./$(NAME)
-				valgrind --log-file=$(PWD)/log.txt --tool=helgrind ./$(NAME) $1 $2 $3 $4
+				valgrind --log-file=$(PWD)/log.txt --tool=helgrind ./$(NAME) 200 1000 100 100
 
 PHONY			+=	do
 do:				all
