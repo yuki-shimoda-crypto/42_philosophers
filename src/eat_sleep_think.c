@@ -22,7 +22,7 @@ static void	time_wait(t_philo *philo, time_t target_time, time_t time_to_wait)
 static bool	pick_up_fork(t_philo *philo, t_arg *arg)
 {
 	pthread_mutex_lock(philo->fork_right_mtx);
-	if (!print_action(arg, calc_elapsed_time(&arg->time_start),
+	if (!print_action(arg, calc_elapsed_time(&philo->time_start),
 			&philo->id, TYPE_TAKE_FORK) || arg->num_of_philo == 1)
 	{
 		pthread_mutex_unlock(philo->fork_right_mtx);
@@ -32,7 +32,7 @@ static bool	pick_up_fork(t_philo *philo, t_arg *arg)
 	}
 	pthread_mutex_lock(philo->fork_left_mtx);
 	philo->time_end_take_fork = calc_elapsed_time(&philo->time_start);
-	if (!print_action(arg, calc_elapsed_time(&arg->time_start), &philo->id,
+	if (!print_action(arg, calc_elapsed_time(&philo->time_start), &philo->id,
 			TYPE_TAKE_FORK) != 0)
 	{
 		pthread_mutex_unlock(philo->fork_right_mtx);
@@ -46,7 +46,7 @@ bool	eat_philo(t_philo *philo, t_arg *arg)
 {
 	if (!pick_up_fork(philo, arg))
 		return (false);
-	if (!print_action(arg, calc_elapsed_time(&arg->time_start),
+	if (!print_action(arg, philo->time_end_take_fork,
 			&philo->id, TYPE_EAT))
 	{
 		pthread_mutex_unlock(philo->fork_right_mtx);
@@ -71,7 +71,7 @@ bool	sleep_philo(t_philo *philo, t_arg *arg)
 	time_t	time_start_sleep;
 
 	time_start_sleep = calc_elapsed_time(&philo->time_start);
-	if (!print_action(arg, calc_elapsed_time(&arg->time_start),
+	if (!print_action(arg, time_start_sleep ,
 			&philo->id, TYPE_SLEEP))
 		return (false);
 	time_wait(philo, time_start_sleep + arg->time_to_sleep, arg->time_to_sleep);
@@ -80,7 +80,7 @@ bool	sleep_philo(t_philo *philo, t_arg *arg)
 
 bool	think_philo(t_philo *philo, t_arg *arg)
 {
-	if (!print_action(arg, calc_elapsed_time(&arg->time_start),
+	if (!print_action(arg, calc_elapsed_time(&philo->time_start),
 			&philo->id, TYPE_THINK))
 		return (false);
 	return (true);
