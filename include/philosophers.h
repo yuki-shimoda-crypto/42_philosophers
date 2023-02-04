@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:54:10 by fedora            #+#    #+#             */
-/*   Updated: 2023/02/04 14:44:21 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/04 19:30:11 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,31 +58,37 @@ typedef struct s_arg
 	int					dead_num;
 	bool				is_exit;
 	t_philo				philo[MAX_PHILO];
+	time_t				time_start;
 	pthread_mutex_t		fork_mtx[MAX_PHILO];
 	pthread_mutex_t		philo_mtx[MAX_PHILO];
 	pthread_mutex_t		write_exit_mtx;
 	pthread_t			thread_monitor;
 }	t_arg;
 
-long		calc_time(long now_time, long start_time);
-long		calc_elapsed_time(long *start_time);
-void		check_input(int argc, char const *argv[], t_arg *arg);
-void		create_threads(t_arg *arg);
-bool		eat(t_philo *philo, t_arg *arg);
-void		error_func(const char *str);
+// utils_time
+time_t		calc_time(long now_time, long start_time);
+time_t		calc_elapsed_time(long *start_time);
+time_t		get_time(void);
+
+// libft function
 long		ft_atol(const char *str);
 int			ft_isdigit(int c);
 void		ft_putstr_fd(const char *s, int fd);
 size_t		ft_strlen(const char *s);
-long		get_time(void);
+
+// philo function
+bool		eat_philo(t_philo *philo, t_arg *arg);
+bool		sleep_philo(t_philo *philo, t_arg *arg);
+bool		think_philo(t_philo *philo, t_arg *arg);
+
+void		check_input(int argc, char const *argv[], t_arg *arg);
+void		create_threads(t_arg *arg);
+void		error_func(const char *str);
 void		init_arg(t_arg *arg);
 void		*monitor(void *arg_void);
-bool		pick_up_fork(t_philo *philo, t_arg *arg);
-bool		philo_sleep(t_philo *philo, t_arg *arg);
 bool		print_action(t_arg *arg, long timestamp,
 				int *id, const char *action);
 void		terminate_arg(t_arg *arg);
-bool		think(t_philo *philo, t_arg *arg);
 void		wait_close_threads(t_arg *arg);
 
 #endif

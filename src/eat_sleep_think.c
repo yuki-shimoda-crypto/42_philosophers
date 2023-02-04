@@ -12,16 +12,17 @@
 
 #include "philosophers.h"
 
-void	time_wait(long target_time, t_philo *philo)
+static void	time_wait(t_philo *philo, time_t target_time, time_t time_to_wait)
 {
+	usleep(time_to_wait * 800);
 	while (calc_elapsed_time(&philo->time_start) < target_time)
 		usleep(100);
 }
 
-bool	pick_up_fork(t_philo *philo, t_arg *arg)
+static bool	pick_up_fork(t_philo *philo, t_arg *arg)
 {
 	pthread_mutex_lock(philo->fork_right_mtx);
-	if (!print_action(arg, calc_elapsed_time(&philo->time_start),
+	if (!print_action(arg, calc_elapsed_time(&arg->time_start),
 			&philo->id, TYPE_TAKE_FORK) || arg->num_of_philo == 1)
 	{
 		pthread_mutex_unlock(philo->fork_right_mtx);
@@ -31,7 +32,7 @@ bool	pick_up_fork(t_philo *philo, t_arg *arg)
 	}
 	pthread_mutex_lock(philo->fork_left_mtx);
 	philo->time_end_take_fork = calc_elapsed_time(&philo->time_start);
-	if (!print_action(arg, philo->time_end_take_fork, &philo->id,
+	if (!print_action(arg, calc_elapsed_time(&arg->time_start), &philo->id,
 			TYPE_TAKE_FORK) != 0)
 	{
 		pthread_mutex_unlock(philo->fork_right_mtx);
@@ -41,9 +42,12 @@ bool	pick_up_fork(t_philo *philo, t_arg *arg)
 	return (true);
 }
 
-bool	eat(t_philo *philo, t_arg *arg)
+bool	eat_philo(t_philo *philo, t_arg *arg)
 {
-	if (!print_action(arg, philo->time_end_take_fork, &philo->id, TYPE_EAT))
+	if (!pick_up_fork(philo, arg))
+		return (false);
+	if (!print_action(arg, calc_elapsed_time(&arg->time_start),
+			&philo->id, TYPE_EAT))
 	{
 		pthread_mutex_unlock(philo->fork_right_mtx);
 		pthread_mutex_unlock(philo->fork_left_mtx);
@@ -52,8 +56,8 @@ bool	eat(t_philo *philo, t_arg *arg)
 	pthread_mutex_lock(&arg->philo_mtx[philo->id - 1]);
 	philo->time_last_eat = get_time();
 	pthread_mutex_unlock(&arg->philo_mtx[philo->id - 1]);
-	usleep(arg->time_to_eat * 800);
-	time_wait(philo->time_end_take_fork + arg->time_to_eat, philo);
+	time_wait(philo, philo->time_end_take_fork + arg->time_to_eat,
+		arg->time_to_eat);
 	pthread_mutex_unlock(philo->fork_right_mtx);
 	pthread_mutex_unlock(philo->fork_left_mtx);
 	pthread_mutex_lock(&arg->philo_mtx[philo->id - 1]);
@@ -62,20 +66,21 @@ bool	eat(t_philo *philo, t_arg *arg)
 	return (true);
 }
 
-bool	philo_sleep(t_philo *philo, t_arg *arg)
+bool	sleep_philo(t_philo *philo, t_arg *arg)
 {
 	time_t	time_start_sleep;
 
 	time_start_sleep = calc_elapsed_time(&philo->time_start);
-	if (!print_action(arg, time_start_sleep, &philo->id, TYPE_SLEEP))
+	if (!print_action(arg, calc_elapsed_time(&arg->time_start),
+			&philo->id, TYPE_SLEEP))
 		return (false);
-	time_wait(time_start_sleep + arg->time_to_sleep, philo);
+	time_wait(philo, time_start_sleep + arg->time_to_sleep, arg->time_to_sleep);
 	return (true);
 }
 
-bool	think(t_philo *philo, t_arg *arg)
+bool	think_philo(t_philo *philo, t_arg *arg)
 {
-	if (!print_action(arg, calc_elapsed_time(&philo->time_start),
+	if (!print_action(arg, calc_elapsed_time(&arg->time_start),
 			&philo->id, TYPE_THINK))
 		return (false);
 	return (true);
