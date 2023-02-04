@@ -1,0 +1,11 @@
+16 1 has taken a fork
+38 1 has taken a fork
+39 1 is eating
+44 2 is thinking
+47 3 has taken a fork
+47 3 has taken a fork
+48 3 is eating
+50 4 is thinking
+52 4 has taken a fork
+53 5 is thinking
+826 1 died
