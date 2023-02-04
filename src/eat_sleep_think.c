@@ -71,7 +71,7 @@ bool	sleep_philo(t_philo *philo, t_arg *arg)
 	time_t	time_start_sleep;
 
 	time_start_sleep = calc_elapsed_time(&philo->time_start);
-	if (!print_action(arg, time_start_sleep ,
+	if (!print_action(arg, time_start_sleep,
 			&philo->id, TYPE_SLEEP))
 		return (false);
 	time_wait(philo, time_start_sleep + arg->time_to_sleep, arg->time_to_sleep);
