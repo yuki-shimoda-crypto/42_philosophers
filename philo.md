@@ -3,6 +3,13 @@
 ## 直すところ
 タイムスタンプを共通化する。
 int max 以上はじく
+exitは使ってはいけない
+提出ディレクトリをphiloにする
+ポインタを渡すときは、64ビットコピーされるので、あまりよくないかも
+pickup_forkで35-36のif文のエラーを見る != いらない　time_end_take_forkで出力
+eat_sleep_think 59行目の関数をかえてもよいかおｍ
+thinkにusleepを与えてもよいかも
+
 
 ## Flow
 1. check input

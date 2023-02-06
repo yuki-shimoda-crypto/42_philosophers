@@ -83,5 +83,6 @@ bool	think_philo(t_philo *philo, t_arg *arg)
 	if (!print_action(arg, calc_elapsed_time(&philo->time_start),
 			&philo->id, TYPE_THINK))
 		return (false);
+	usleep(300);
 	return (true);
 }
