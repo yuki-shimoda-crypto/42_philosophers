@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 10:04:23 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/02/08 05:36:26 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/08 06:18:39 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,6 @@ static bool	is_num_of_eat_reached(t_arg *arg)
 		i++;
 	}
 	return (true);
-
-//	int	i;
-//
-//	i = 0;
-//	while (i < arg->num_of_philo)
-//	{
-//		pthread_mutex_lock(&arg->philo_mtx[i]);
-//		if (arg->num_of_must_eat <= arg->philo[i].num_of_eaten)
-//		{
-//			pthread_mutex_unlock(&arg->philo_mtx[i]);
-//			return (true);
-//		}
-//		pthread_mutex_unlock(&arg->philo_mtx[i]);
-//		i++;
-//	}
-//	return (false);
-
 }
 
 void	*monitor(void *arg_void)

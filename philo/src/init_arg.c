@@ -6,7 +6,7 @@
 /*   By: yshimoda <yshimoda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 10:56:39 by yshimoda          #+#    #+#             */
-/*   Updated: 2023/02/07 21:31:44 by yshimoda         ###   ########.fr       */
+/*   Updated: 2023/02/08 06:19:37 by yshimoda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,6 @@
 static void	init_philo(t_philo *philo, t_arg *arg, int i)
 {
 	philo->arg = arg;
-//	if (i == arg->num_of_philo - 1)
-//	{
-//		if (i % 2 == 0)
-//		{
-//			philo->fork_right_mtx = &arg->fork_mtx[i];
-//			philo->fork_left_mtx = &arg->fork_mtx[0];
-//		}
-//		else
-//		{
-//			philo->fork_right_mtx = &arg->fork_mtx[0];
-//			philo->fork_left_mtx = &arg->fork_mtx[i];
-//		}
-//	}
-//	else
-//	{
-//		if (i % 2 == 0)
-//		{
-//			philo->fork_right_mtx = &arg->fork_mtx[i];
-//			philo->fork_left_mtx = &arg->fork_mtx[i + 1];
-//		}
-//		else
-//		{
-//			philo->fork_right_mtx = &arg->fork_mtx[i + 1];
-//			philo->fork_left_mtx = &arg->fork_mtx[i];
-//		}
-//	}
-//
-
 	if (i % 2 == 0)
 	{
 		philo->fork_right_mtx = &arg->fork_mtx[i];
@@ -59,16 +31,6 @@ static void	init_philo(t_philo *philo, t_arg *arg, int i)
 			philo->fork_right_mtx = &arg->fork_mtx[i + 1];
 		philo->fork_left_mtx = &arg->fork_mtx[i];
 	}
-
-//	philo->fork_left_mtx = &arg->fork_mtx[i];
-//	if (i == arg->num_of_philo - 1)
-//	{
-//		philo->fork_left_mtx = &arg->fork_mtx[0];
-//		philo->fork_right_mtx = &arg->fork_mtx[i];
-//	}
-//	else
-//		philo->fork_right_mtx = &arg->fork_mtx[i + 1];
-//
 	philo->id = i + 1;
 	philo->num_of_eaten = 0;
 	return ;
