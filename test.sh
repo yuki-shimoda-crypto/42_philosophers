@@ -1,7 +1,7 @@
 #!/bin/bash
  
-i=100
-while [ $i -lt 201 ]
+i=1
+while [ $i -lt 6 ]
 do
   echo "$i is eating"
   cat output.txt | grep "$i is eating" | wc -l

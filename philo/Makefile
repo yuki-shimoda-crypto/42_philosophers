@@ -22,18 +22,23 @@ SRCS			=	src/check.c				\
 					src/utils.c				\
 					src/utils_time.c
 
-OBJS			=	$(SRCS:.c=.o)
+OBJ_DIR			=	obj
+OBJS			=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 INCLUDE			=	-I include
 
 CC				=	cc
 
 CFLAGS			=	-Wall -Wextra -Werror
-DEBUG_FLAGS		=	-g -fsanitize=address -fsanitize=leak -fsanitize=undefined -pthread
-DEBUG_FLAGS_MAC	=	-g -fsanitize=address -fsanitize=undefined -pthread
+DEBUG_FLAGS		=	-g -fsanitize=address  -fsanitize=undefined -pthread
 THREAD_FLAGS	=	-g -fsanitize=thread -pthread
 
-.c.o:
+ifeq ($(shell uname -s), Linux)
+DEBUG_FLAGS		+=	-fsanitize=leak
+endif
+
+$(OBJ_DIR)/%.o:%.c
+				@mkdir -p $(@D)
 				$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(NAME):		$(OBJS)
@@ -44,7 +49,7 @@ all:			$(NAME)
 
 PHONY			+=	clean
 clean:			
-				$(RM) $(OBJS)
+				$(RM) -r $(OBJ_DIR)
 
 PHONY			+=	fclean
 fclean:			clean
@@ -56,10 +61,6 @@ re:				fclean all
 PHONY			+=	debug
 debug:			CFLAGS +=	$(DEBUG_FLAGS)
 debug:			re
-
-PHONY			+=	debug_mac
-debug_mac:		CFLAGS +=	$(DEBUG_FLAGS_MAC)
-debug_mac:		re
 
 PHONY			+=	thread
 thread:			CFLAGS +=	$(THREAD_FLAGS)
